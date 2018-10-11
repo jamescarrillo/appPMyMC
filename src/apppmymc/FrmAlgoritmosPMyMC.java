@@ -5,6 +5,7 @@
  */
 package apppmymc;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,10 +29,16 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     public FrmAlgoritmosPMyMC() {
         initComponents();
         this.setLocationRelativeTo(null);
+        /*
+        Utilities.cambiarTamañoTabla(tablaPM);
+        Utilities.centrarCeldasTabla(tablaPM, new int[]{0, 1, 2, 3});
+        Utilities.cambiarTamañoTabla(tablaMC);
+        Utilities.centrarCeldasTabla(tablaMC, new int[]{0, 1, 2, 3});
+         */
     }
 
     private void limpiarTabla(DefaultTableModel model, JTable tabla) {
-        int cant = this.tablaPM.getRowCount();
+        int cant = tabla.getRowCount();
         for (int i = 0; i < cant; i++) {
             for (int j = 0; j < tabla.getRowCount(); j++) {
                 model.removeRow(j);
@@ -47,6 +54,21 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 pos = i;
                 //System.out.println(semilla.getX0() + " con " + listSemillas.get(i).getX0() + " | " + semilla.getX1() + " con " + listSemillas.get(i).getX1());
                 //System.out.println("encontro pos : " + (i+1) + " comparo con " + semilla.getX0() + " -- " + semilla.getX1());
+                break;
+            }
+        }
+        //System.out.println("----------------------------------------------");
+        return pos;
+    }
+
+    private int existeMC(Semilla semilla) {
+        int pos = -1;
+        for (int i = 0; i < listSemillas.size(); i++) {
+            //System.out.println(semilla.getX1() + " con " + listSemillas.get(i).getX1());
+            if (listSemillas.get(i).getX0() == semilla.getX0()) {
+                pos = i;
+                //System.out.println(semilla.getX0() + " con " + listSemillas.get(i).getX0());
+                //System.out.println("encontro pos : " + (i + 1) + " comparo con " + listSemillas.get(i).getX0() + " -- " + semilla.getX0());
                 break;
             }
         }
@@ -100,6 +122,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaMC = new javax.swing.JTable();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        lblDondeRepite2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,13 +143,18 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         txtX0PM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtX0PM.setText("5015");
         txtX0PM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtX0PMKeyPressed(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtX0PMKeyTyped(evt);
             }
         });
 
         txtX1PM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtX1PM.setText("5734");
+        txtX1PM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtX1PMKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("X1");
 
@@ -131,6 +162,11 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
         txtCantNumerosPM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantNumerosPM.setText("5");
+        txtCantNumerosPM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantNumerosPMKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("D");
 
@@ -231,7 +267,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -255,8 +291,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDondeRepite, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addComponent(lblDondeRepite, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -265,11 +301,12 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblDondeRepite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblDondeRepite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -292,7 +329,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -318,19 +355,39 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
         jLabel1.setText("X0");
 
+        txtX0MC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtX0MC.setText("9803");
+        txtX0MC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtX0MCKeyTyped(evt);
+            }
+        });
 
+        txtX1MC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtX1MC.setText("6965");
+        txtX1MC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtX1MCKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Constante \"a\"");
 
         jLabel3.setText("CANT. NUMEROS");
 
+        txtCantNumMC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCantNumMC.setText("5");
+        txtCantNumMC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantNumMCKeyTyped(evt);
+            }
+        });
 
         jLabel4.setText("D");
 
+        txtDMC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDMC.setText("4");
+        txtDMC.setEnabled(false);
 
         btnHallarNumerosMC.setText("HALLAR NUMEROS");
         btnHallarNumerosMC.addActionListener(new java.awt.event.ActionListener() {
@@ -399,11 +456,11 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Yi", "Xi", "Ri"
+                "N°", "Yi", "Xi", "Ri"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -415,6 +472,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             tablaMC.getColumnModel().getColumn(0).setResizable(false);
             tablaMC.getColumnModel().getColumn(1).setResizable(false);
             tablaMC.getColumnModel().getColumn(2).setResizable(false);
+            tablaMC.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -430,8 +488,44 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel11.setText("POSICION DESDE DONDE SE REPITE:");
+
+        jButton2.setText("Pruebas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDondeRepite2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDondeRepite2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -441,8 +535,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -451,7 +547,9 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -478,7 +576,9 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -546,7 +646,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     if (Integer.parseInt(X) == 0) {
                         break;
                     }
-                    r=Float.parseFloat(this.R);
+                    r = Float.parseFloat(this.R);
                     Semilla semilla = new Semilla(x0, x1, r);
                     int pos = existe(semilla);
                     if (pos != -1) {
@@ -554,6 +654,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                         if (!encontro) {
                             encontro = true;
                             this.lblDondeRepite.setText("" + (i + 1));
+
+                            this.tablaPM.setDefaultRenderer(Object.class, new Resaltador(pos, i));
                         }
                     }
                     listSemillas.add(semilla);
@@ -561,8 +663,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     x1 = Integer.parseInt(tempCadena);
                     model.addRow(fila);
                 }
-                
-              /*  for (int i = 0; i < listSemillas.size(); i++) {
+
+                /*  for (int i = 0; i < listSemillas.size(); i++) {
                     System.out.println(" pos "+i+" :>"+listSemillas.get(i).getR());
                 }*/
             } else {
@@ -575,56 +677,126 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
     private void btnHallarNumerosMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHallarNumerosMCActionPerformed
         // TODO add your handling code here:
-        if (Integer.parseInt(this.txtDMC.getText()) < 3) {
-            JOptionPane.showMessageDialog(this, "D debe ser mayor que 3 (D>3)", "Alerta", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        int temp;
-        String tempCadena;
-        int posi;
-        int posf;
-        int x0 = Integer.parseInt(this.txtX0MC.getText());
-        int x1 = Integer.parseInt(this.txtX1MC.getText());
-        DefaultTableModel model = (DefaultTableModel) this.tablaMC.getModel();
-        limpiarTabla(model, tablaMC);
-        Object[] fila = new Object[3];
-        for (int i = 0; i < Integer.parseInt(this.txtCantNumMC.getText()); i++) {
-            //PARA Y
-            temp = x0 * x1;
-            //VERIFICAMOS SI TENEMOS QUE AGREGAR CEROS
-            tempCadena = String.valueOf(temp);
-            if ((String.valueOf(temp).length() - Integer.parseInt(this.txtDMC.getText())) % 2 != 0) {
-                //AGREGAMOS CEROS
-                tempCadena = "0" + String.valueOf(temp);
+        listSemillas.clear();
+        boolean encontro = false;
+        if (this.txtX0MC.getText().length() > 3) {
+            if (this.txtX0MC.getText().length() == this.txtX1MC.getText().length()) {
+                this.txtDMC.setText(String.valueOf(this.txtX0MC.getText().length()));
+                int temp;
+                String tempCadena;
+                int posi;
+                int posf;
+                int x0 = Integer.parseInt(this.txtX0MC.getText());
+                int x1 = Integer.parseInt(this.txtX1MC.getText());
+                float r;
+                DefaultTableModel model = (DefaultTableModel) this.tablaMC.getModel();
+                limpiarTabla(model, tablaMC);
+                Object[] fila = new Object[4];
+                for (int i = 0; i < Integer.parseInt(this.txtCantNumMC.getText()); i++) {
+                    //PARA Y
+                    temp = x0 * x1;
+                    //VERIFICAMOS SI TENEMOS QUE AGREGAR CEROS
+                    tempCadena = String.valueOf(temp);
+                    if ((String.valueOf(temp).length() - Integer.parseInt(this.txtDMC.getText())) % 2 != 0) {
+                        //AGREGAMOS CEROS
+                        tempCadena = "0" + String.valueOf(temp);
+                    }
+                    this.Y = "Y" + (+i) + " (" + x1 + ")(" + x0 + ") = " + tempCadena;
+                    posi = ((tempCadena.length() - Integer.parseInt(this.txtDMC.getText())) / 2);
+                    posf = posi + Integer.parseInt(this.txtDMC.getText());
+                    tempCadena = tempCadena.substring(posi, posf);
+
+                    this.X = tempCadena;
+                    this.R = "0." + tempCadena;
+                    //System.out.println(this.Y + " | " + this.X + " | " + this.R);
+                    //AGREGAMOS A LA TABLA
+                    fila[0] = (i + 1);
+                    fila[1] = this.Y;
+                    fila[2] = this.X;
+                    fila[3] = this.R;
+                    if (Integer.parseInt(X) == 0) {
+                        break;
+                    }
+                    r = Float.parseFloat(this.R);
+                    Semilla semilla = new Semilla(x0, x1, r);
+                    int pos = existeMC(semilla);
+                    if (pos != -1) {
+                        //System.out.println("--------------- i :" + (i + 1));
+                        if (!encontro) {
+                            encontro = true;
+                            this.lblDondeRepite2.setText("" + (i + 1));
+                            this.tablaMC.setDefaultRenderer(Object.class, new Resaltador(pos, i));
+                        }
+                    }
+                    listSemillas.add(semilla);
+                    //x0 = x1;
+                    x0 = Integer.parseInt(tempCadena);
+                    model.addRow(fila);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "La semilla debe tener el mismo numero de dígitos", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
-            this.Y = "Y" + (+i) + " (" + x1 + ")(" + x0 + ") = " + tempCadena;
-            posi = ((tempCadena.length() - Integer.parseInt(this.txtDMC.getText())) / 2);
-            posf = posi + Integer.parseInt(this.txtDMC.getText());
-            tempCadena = tempCadena.substring(posi, posf);
-            //x0 = x1;
-            x0 = Integer.parseInt(tempCadena);
-            this.X = tempCadena;
-            this.R = "0." + tempCadena;
-            System.out.println(this.Y + " | " + this.X + " | " + this.R);
-            //AGREGAMOS A LA TABLA
-            fila[0] = this.Y;
-            fila[1] = this.X;
-            fila[2] = this.R;
-            model.addRow(fila);
+        } else {
+            JOptionPane.showMessageDialog(this, "Las semillas deben ser de más 3 dígitos", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
-        System.out.println("-------------------------------------------------------");
     }//GEN-LAST:event_btnHallarNumerosMCActionPerformed
 
-    private void txtX0PMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtX0PMKeyPressed
+    private void txtCantNumerosPMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantNumerosPMKeyTyped
         // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosPM.doClick();
+        }
+    }//GEN-LAST:event_txtCantNumerosPMKeyTyped
 
-    }//GEN-LAST:event_txtX0PMKeyPressed
+    private void txtX0PMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtX0PMKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosPM.doClick();
+        }
+    }//GEN-LAST:event_txtX0PMKeyTyped
+
+    private void txtX1PMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtX1PMKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosPM.doClick();
+        }
+    }//GEN-LAST:event_txtX1PMKeyTyped
+
+    private void txtCantNumMCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantNumMCKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosMC.doClick();
+        }
+    }//GEN-LAST:event_txtCantNumMCKeyTyped
+
+    private void txtX0MCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtX0MCKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosMC.doClick();
+        }
+    }//GEN-LAST:event_txtX0MCKeyTyped
+
+    private void txtX1MCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtX1MCKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnHallarNumerosMC.doClick();
+        }
+    }//GEN-LAST:event_txtX1MCKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -668,7 +840,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private javax.swing.JButton btnHallarNumerosMC;
     private javax.swing.JButton btnHallarNumerosPM;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -680,6 +855,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -692,6 +869,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDondeRepite;
+    private javax.swing.JLabel lblDondeRepite1;
+    private javax.swing.JLabel lblDondeRepite2;
     private javax.swing.JTable tablaMC;
     private javax.swing.JTable tablaPM;
     private javax.swing.JTextField txtCantNumMC;
