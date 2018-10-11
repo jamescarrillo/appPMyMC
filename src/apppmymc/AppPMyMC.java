@@ -16,6 +16,8 @@ public class AppPMyMC {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("---> " + Utilities.getSecuenciaBinaria("0.67,0.62,0.05,0.49,0.59,0.42,0.64,0.06,0.74,0.67", 0.6, 0.7));
+    
     }
     
 }
