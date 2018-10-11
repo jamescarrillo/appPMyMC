@@ -25,6 +25,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private String X;
     private String R;
     private List<Semilla> listSemillas = new ArrayList<>();
+    private FrmPruebas PUA = new FrmPruebas();
 
     public FrmAlgoritmosPMyMC() {
         initComponents();
@@ -663,7 +664,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     x1 = Integer.parseInt(tempCadena);
                     model.addRow(fila);
                 }
-
+                PUA.ReciboCadena(listSemillas);
                 /*  for (int i = 0; i < listSemillas.size(); i++) {
                     System.out.println(" pos "+i+" :>"+listSemillas.get(i).getR());
                 }*/
@@ -733,6 +734,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     x0 = Integer.parseInt(tempCadena);
                     model.addRow(fila);
                 }
+                PUA.ReciboCadena(listSemillas);
             } else {
                 JOptionPane.showMessageDialog(this, "La semilla debe tener el mismo numero de dígitos", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
@@ -791,11 +793,14 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
+        PUA.setVisible(true);
+        PUA.mostrar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        PUA.setVisible(true);
+        PUA.mostrar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
