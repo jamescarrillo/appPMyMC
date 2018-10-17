@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author James Carrillo
+ * @author Juan Barrantes
  */
 public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
