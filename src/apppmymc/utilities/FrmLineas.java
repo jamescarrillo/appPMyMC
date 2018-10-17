@@ -25,6 +25,7 @@ public class FrmLineas extends javax.swing.JFrame {
     public FrmLineas() {
         initComponents();
         this.setLocationRelativeTo(null);
+        cargarLista();
     }
 
     private void cargarLista() {

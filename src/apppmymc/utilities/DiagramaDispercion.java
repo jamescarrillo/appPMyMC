@@ -68,8 +68,9 @@ public class DiagramaDispercion {
             pos_x = UtilitiesDiagrama.getPosDiagrama(UtilitiesDiagrama.getTotalRango(listPares.get(i).getR1(), rango_v, n), UtilitiesDiagrama.getPuntoCoordenada(listPares.get(i).getR1(), rango_v, n), listPares.get(i).getR1());
             pos_y = UtilitiesDiagrama.getPosDiagrama(UtilitiesDiagrama.getTotalRango(listPares.get(i).getR2(), rango_h, n), UtilitiesDiagrama.getPuntoCoordenada(listPares.get(i).getR2(), rango_h, n), listPares.get(i).getR2());
             //pos_y = UtilitiesDiagrama.getPosDiagrama(rango_v, rango_enum, listPares.get(i).getR2());
+            System.out.println("" + pos_x + " - " + pos_y);
             g.drawOval(pos_x, pos_y, 5, 5);
-
+            g.drawString("(" + listPares.get(i).getR1() + " " + listPares.get(i).getR2() + ")", pos_x + 10, pos_y + 10);
         }
     }
 
