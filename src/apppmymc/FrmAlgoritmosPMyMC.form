@@ -3,6 +3,8 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="GENERACI&#xd3;N DE NUMEROS PSEUDOALEATORIOS"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -383,9 +385,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblDondeRepite" min="-2" pref="185" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="lblDondeRepite" min="-2" pref="113" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton1" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnAleatoriedad" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -396,8 +400,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel9" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnAleatoriedad" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="lblDondeRepite" max="32767" attributes="0"/>
@@ -421,6 +428,14 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="btnAleatoriedad">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="ALEATORIEDAD"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAleatoriedadActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -732,9 +747,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblDondeRepite2" min="-2" pref="155" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                      <Component id="jButton2" max="32767" attributes="0"/>
+                                      <Component id="lblDondeRepite2" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jButton2" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="btnAleatoriedad1" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -744,7 +761,10 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="jButton2" alignment="3" max="32767" attributes="0"/>
+                                              <Component id="btnAleatoriedad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
                                           <Component id="lblDondeRepite2" alignment="0" max="32767" attributes="0"/>
                                       </Group>
@@ -767,6 +787,14 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="btnAleatoriedad1">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="ALEATORIEDAD"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAleatoriedad1ActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>

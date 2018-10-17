@@ -36,6 +36,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         Utilities.cambiarTamañoTabla(tablaMC);
         Utilities.centrarCeldasTabla(tablaMC, new int[]{0, 1, 2, 3});
          */
+        this.txtCantNumerosPM.requestFocus();
     }
 
     private void limpiarTabla(DefaultTableModel model, JTable tabla) {
@@ -108,6 +109,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lblDondeRepite = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnAleatoriedad = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -127,8 +129,11 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lblDondeRepite2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        btnAleatoriedad1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GENERACIÓN DE NUMEROS PSEUDOALEATORIOS");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -284,6 +289,13 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             }
         });
 
+        btnAleatoriedad.setText("ALEATORIEDAD");
+        btnAleatoriedad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAleatoriedadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -292,9 +304,11 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDondeRepite, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblDondeRepite, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAleatoriedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -303,8 +317,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(btnAleatoriedad))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblDondeRepite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -505,6 +521,13 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             }
         });
 
+        btnAleatoriedad1.setText("ALEATORIEDAD");
+        btnAleatoriedad1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAleatoriedad1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -513,9 +536,11 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDondeRepite2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblDondeRepite2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAleatoriedad1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -523,7 +548,9 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAleatoriedad1))
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblDondeRepite2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -537,9 +564,8 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -668,6 +694,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 /*  for (int i = 0; i < listSemillas.size(); i++) {
                     System.out.println(" pos "+i+" :>"+listSemillas.get(i).getR());
                 }*/
+                if(!encontro){
+                    //SI NO ENCONTRO CAMBIAMOS LOS TAMAÑOS SOLAMENTE
+                    Utilities.cambiarTamañoTabla(tablaPM);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Las semillas deben tener el mismo numero de dígitos", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
@@ -735,6 +765,10 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     model.addRow(fila);
                 }
                 PUA.ReciboCadena(listSemillas);
+                if(!encontro){
+                    //SI NO ENCONTRO CAMBIAMOS LOS TAMAÑOS SOLAMENTE
+                    Utilities.cambiarTamañoTabla(tablaMC);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "La semilla debe tener el mismo numero de dígitos", "Alerta", JOptionPane.WARNING_MESSAGE);
             }
@@ -803,6 +837,27 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
         PUA.mostrar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnAleatoriedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatoriedadActionPerformed
+        // TODO add your handling code here:
+        if (this.tablaPM.getRowCount() > 0) {
+            FrmAleatoriedad ale = new FrmAleatoriedad(this, true, this.tablaPM);
+            ale.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnAleatoriedadActionPerformed
+
+    private void btnAleatoriedad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatoriedad1ActionPerformed
+        // TODO add your handling code here:
+        if (this.tablaMC.getRowCount() > 0) {
+            FrmAleatoriedad ale = new FrmAleatoriedad(this, true,this.tablaMC);
+            ale.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAleatoriedad1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -842,12 +897,13 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAleatoriedad;
+    private javax.swing.JButton btnAleatoriedad1;
     private javax.swing.JButton btnHallarNumerosMC;
     private javax.swing.JButton btnHallarNumerosPM;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -860,7 +916,6 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -874,7 +929,6 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDondeRepite;
-    private javax.swing.JLabel lblDondeRepite1;
     private javax.swing.JLabel lblDondeRepite2;
     private javax.swing.JTable tablaMC;
     private javax.swing.JTable tablaPM;
