@@ -178,4 +178,18 @@ public class Utilities {
         DecimalFormat formateador = new DecimalFormat(formato, simbolos);
         return formateador.format(moneda);
     }
+    
+    public static String formatearMonedaDiagrama(double moneda) {
+        //DecimalFormat formateador = new DecimalFormat("###,###,##0.00", new DecimalFormatSymbols(Locale.ENGLISH)); //NO NECESITA SIMBOLOS
+        int cantCeros = 3;
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator('.');
+        simbolos.setGroupingSeparator(',');
+        String formato = "###,###,##0.";
+        for (int i = 0; i < cantCeros; i++) {
+            formato = formato + "0";
+        }
+        DecimalFormat formateador = new DecimalFormat(formato, simbolos);
+        return formateador.format(moneda);
+    }
 }
