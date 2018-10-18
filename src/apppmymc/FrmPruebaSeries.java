@@ -204,6 +204,17 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         this.tablaValoresDispersion.setRowHeight(25);
     }
 
+    private boolean validarValoresIngresados() {
+        boolean termino = true;
+        for (int i = 0; i < tablaValoresDispersion.getRowCount(); i++) {
+            if (tablaValoresDispersion.getValueAt(i, 1).toString().equals("")) {
+                termino = false;
+                break;
+            }
+        }
+        return termino;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -407,7 +418,9 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("FORMATO PARA LLENAR -> N° INTERVALO=CANTIDAD QUE HAY");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel4.setText("Ingrese valores en los intervalos para continuar");
         jLabel4.setToolTipText("Ejemplo: 1=3");
 
         javax.swing.GroupLayout panelCasillerosLayout = new javax.swing.GroupLayout(panelCasilleros);
@@ -638,7 +651,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
         lblX02.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        btnresultado.setText("RESULTADO");
+        btnresultado.setText("OBTENER RESULTADO");
         btnresultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnresultadoActionPerformed(evt);
@@ -677,8 +690,8 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnresultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(btnresultado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtInterseccin, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblX02, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -704,11 +717,11 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtInterseccin, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnresultado)
-                .addContainerGap())
+                .addComponent(btnresultado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -749,7 +762,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                 .addComponent(lblComparativo1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblComplementoResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -770,12 +783,12 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(245, 245, 245)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(259, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
@@ -830,6 +843,12 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
         // TODO add your handling code here:
         if (this.txtN.getText().length() > 0 && this.txtN1.getText().length() > 0) {
+            //LIMPIAMOS DE DATOS 2
+            limpiarTabla(tablaCalculoPrueba);
+            lblX02.setText("");
+            lblComparativo1.setText("");
+            lblComplementoResultado.setText("");
+            txtInterseccin.setText("");
             limpiarTabla(tablaValoresDispersion);
             sacarParesOrdenados();
             this.panelPlano.getGraphics().clearRect(0, 0, this.panelPlano.getWidth(), this.panelPlano.getHeight());
@@ -859,9 +878,13 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
         if (this.tablaValoresDispersion.getRowCount() >= 0) {
-            jTabbedPane1.setSelectedIndex(1);
-            limpiarTabla(tablaCalculoPrueba);
-            generarCalculoPrueba();
+            if (validarValoresIngresados()) {
+                jTabbedPane1.setSelectedIndex(1);
+                limpiarTabla(tablaCalculoPrueba);
+                generarCalculoPrueba();
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor ingrese todos los valores de los intervalos para continuar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor genere su gráfica de dispersión!", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
