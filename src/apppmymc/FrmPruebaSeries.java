@@ -29,8 +29,6 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
     public FrmPruebaSeries() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.tablaValoresDispersion.getTableHeader().setVisible(false);
-        this.tablaValoresDispersion.getTableHeader().setPreferredSize(new Dimension(0, 0));
 
         cargarLista();
     }
@@ -39,8 +37,8 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         initComponents();
         this.tabla = tabla;
         this.setLocationRelativeTo(null);
-        this.tablaValoresDispersion.getTableHeader().setVisible(false);
-        this.tablaValoresDispersion.getTableHeader().setPreferredSize(new Dimension(0, 0));
+        //this.tablaValoresDispersion.getTableHeader().setVisible(false);
+        //this.tablaValoresDispersion.getTableHeader().setPreferredSize(new Dimension(0, 0));
         //cargarLista();
         cargarNumerosATabla();
         this.txtN.requestFocus();
@@ -175,17 +173,35 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
     private int buscarCantidad(int intervalo) {
         int cantidad = 0;
-        String[] valoresTemp; // k=?
+        //String[] valoresTemp; // k=?
         for (int i = 0; i < this.tablaValoresDispersion.getRowCount(); i++) {
             for (int j = 0; j < this.tablaValoresDispersion.getColumnCount(); j++) {
+                if (Integer.parseInt(this.tablaValoresDispersion.getValueAt(i, 0).toString()) == intervalo) {
+                    cantidad = Integer.parseInt(this.tablaValoresDispersion.getValueAt(i, 1).toString());
+                    break;
+                }
+                /*
                 valoresTemp = this.tablaValoresDispersion.getValueAt(i, j).toString().trim().split("=");
                 if (Integer.parseInt(valoresTemp[0]) == intervalo) {
                     cantidad = Integer.parseInt(valoresTemp[1]);
                     break;
                 }
+                 */
             }
         }
         return cantidad;
+    }
+
+    private void crearTablaDispersion2() {
+        DefaultTableModel model = (DefaultTableModel) this.tablaValoresDispersion.getModel();
+        int total_o = Integer.parseInt(this.txtN.getText().trim()) * Integer.parseInt(this.txtN1.getText().trim());
+        Object[] fila = new Object[2];
+        for (int i = 0; i < total_o; i++) {
+            fila[0] = (i + 1);
+            fila[1] = "";
+            model.addRow(fila);
+        }
+        this.tablaValoresDispersion.setRowHeight(25);
     }
 
     /**
@@ -237,6 +253,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         lblX02 = new javax.swing.JLabel();
         btnresultado = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         lblComplementoResultado = new javax.swing.JLabel();
@@ -369,13 +386,18 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "INTERVALO", "CANTIDAD"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaValoresDispersion);
-        if (tablaValoresDispersion.getColumnModel().getColumnCount() > 0) {
-            tablaValoresDispersion.getColumnModel().getColumn(2).setHeaderValue("Title 3");
-        }
 
         btnContinuar.setText("CONTINUAR");
         btnContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -604,17 +626,28 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                 txtInterseccinActionPerformed(evt);
             }
         });
+        txtInterseccin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInterseccinKeyTyped(evt);
+            }
+        });
 
-        jLabel10.setText("INGRESE VALOR DE INTERSECCIÓN");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("VALOR DE INTERSECCIÓN");
 
         lblX02.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        btnresultado.setText("OBTENER RESULTADO");
+        btnresultado.setText("RESULTADO");
         btnresultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnresultadoActionPerformed(evt);
             }
         });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel12.setText("Separacion Decimal : \".\"");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -634,13 +667,17 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                         .addGap(103, 103, 103)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblX02, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtInterseccin)
-                    .addComponent(btnresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnresultado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtInterseccin, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -655,12 +692,17 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblX02, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInterseccin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInterseccin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(btnresultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -670,8 +712,10 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setText("ANÁLISIS DE RESULTADO");
 
+        lblComplementoResultado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblComplementoResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        lblComparativo1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblComparativo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -700,7 +744,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                 .addComponent(lblComparativo1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblComplementoResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -721,13 +765,13 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(428, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(245, 245, 245)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(246, 246, 246)))
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
@@ -781,12 +825,14 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
         // TODO add your handling code here:
         if (this.txtN.getText().length() > 0 && this.txtN1.getText().length() > 0) {
+            limpiarTabla(tablaValoresDispersion);
             sacarParesOrdenados();
             this.panelPlano.getGraphics().clearRect(0, 0, this.panelPlano.getWidth(), this.panelPlano.getHeight());
             DiagramaDispercion diagrama = new DiagramaDispercion(this.panelPlano.getGraphics(), new Dimension(400, 300), 60, Integer.parseInt(txtN.getText().trim()), Integer.parseInt(txtN1.getText().trim()), list, this.jCheckBox1.isSelected());
             diagrama.construir();
             /*CREAMOS LA TABLA*/
-            crearTablaDispersion();
+            //crearTablaDispersion();
+            crearTablaDispersion2();
         } else {
             JOptionPane.showMessageDialog(this, "Por favor ingrese correctamente los valores de filas y columnas!", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
@@ -854,6 +900,14 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnresultadoActionPerformed
 
+    private void txtInterseccinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInterseccinKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c == KeyEvent.VK_ENTER) {
+            this.btnresultado.doClick();
+        }
+    }//GEN-LAST:event_txtInterseccinKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -904,6 +958,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
