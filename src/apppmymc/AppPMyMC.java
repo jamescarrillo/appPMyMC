@@ -24,6 +24,7 @@ public class AppPMyMC {
         double num = 1.4555454111;
         System.out.println("->" + num);
         System.out.println("->" + Math.sqrt(2));
+        System.out.println(" " + Float.parseFloat("15.5"));
         
     }
     

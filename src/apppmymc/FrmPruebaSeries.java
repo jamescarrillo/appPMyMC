@@ -148,7 +148,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
     private void generarCalculoPrueba() {
         DefaultTableModel model = (DefaultTableModel) this.tablaCalculoPrueba.getModel();
-        Object[] fila = new Object[Integer.parseInt(this.txtN1.getText().trim())];
+        Object[] fila = new Object[4];
         int totalFilas = Integer.parseInt(this.txtN1.getText().trim()) * Integer.parseInt(this.txtN.getText().trim());
         for (int i = 0; i < totalFilas; i++) {
             fila[0] = (i + 1);
@@ -594,7 +594,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel8.setText("=");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("CALCULO DE X");
 
@@ -609,7 +609,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
         lblX02.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        btnresultado.setText("Resultado");
+        btnresultado.setText("OBTENER RESULTADO");
         btnresultado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnresultadoActionPerformed(evt);
@@ -622,28 +622,26 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addContainerGap(193, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(133, 133, 133))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(35, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblX02, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(133, 133, 133))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtInterseccin, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(206, 206, 206)
-                .addComponent(btnresultado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblX02, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInterseccin)
+                    .addComponent(btnresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -661,15 +659,16 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtInterseccin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnresultado)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnresultado, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel11.setText("RESULTADO");
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setText("ANÁLISIS DE RESULTADO");
 
         lblComplementoResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -844,17 +843,15 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
 
     private void btnresultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresultadoActionPerformed
         // TODO add your handling code here:
-        float x2 = Float.parseFloat(lblX02.getText());
-        float inter = Float.parseFloat(txtInterseccin.getText());
-        
-        if (x2<inter) {
-            lblComparativo1.setText("Dado que "+x2+" < "+inter+", entonces nose puede rechazar que");
+        double x2 = Double.parseDouble(lblX02.getText());
+        double inter = Double.parseDouble(txtInterseccin.getText());
+        if (x2 < inter) {
+            lblComparativo1.setText("Dado que " + x2 + " < " + inter + ", entonces nose puede rechazar que");
             lblComplementoResultado.setText("el conjunto de numero Ri sigue una distribucion uniforme");
-        }else{
-            lblComparativo1.setText("Dado que "+x2+" > "+inter+", entonces se puede rechazar que");
+        } else {
+            lblComparativo1.setText("Dado que " + x2 + " > " + inter + ", entonces se puede rechazar que");
             lblComplementoResultado.setText("el conjunto de numero Ri sigue una distribucion uniforme");
         }
-        
     }//GEN-LAST:event_btnresultadoActionPerformed
 
     /**
