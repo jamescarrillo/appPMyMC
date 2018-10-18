@@ -920,7 +920,7 @@ public class FrmPruebaSeries extends javax.swing.JFrame {
         double x2 = Double.parseDouble(lblX02.getText());
         double inter = Double.parseDouble(txtInterseccin.getText());
         if (x2 < inter) {
-            lblComparativo1.setText("Dado que " + x2 + " < " + inter + ", entonces nose puede rechazar que");
+            lblComparativo1.setText("Dado que " + x2 + " < " + inter + ", entonces no se puede rechazar que");
             lblComplementoResultado.setText("el conjunto de numero Ri sigue una distribucion uniforme");
         } else {
             lblComparativo1.setText("Dado que " + x2 + " > " + inter + ", entonces se puede rechazar que");
