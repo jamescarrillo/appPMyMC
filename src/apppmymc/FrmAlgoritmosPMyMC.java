@@ -827,7 +827,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (this.tablaMC.getRowCount() > 0) {
+        if (this.tablaPM.getRowCount() > 0) {
             PUA.setVisible(true);
             PUA.mostrar();
         } else {
