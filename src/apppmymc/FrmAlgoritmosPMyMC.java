@@ -514,7 +514,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
         jLabel11.setText("POSICION DESDE DONDE SE REPITE:");
 
-        jButton2.setText("Pruebas");
+        jButton2.setText("UNIFORMIDAD");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -536,9 +536,9 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDondeRepite2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblDondeRepite2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAleatoriedad1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -827,21 +827,39 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        PUA.setVisible(true);
-        PUA.mostrar();
+        if (this.tablaMC.getRowCount() > 0) {
+            PUA.setVisible(true);
+            PUA.mostrar();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        PUA.setVisible(true);
-        PUA.mostrar();
+        if (this.tablaMC.getRowCount() > 0) {
+            PUA.setVisible(true);
+            PUA.mostrar();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAleatoriedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatoriedadActionPerformed
         // TODO add your handling code here:
         if (this.tablaPM.getRowCount() > 0) {
-            FrmAleatoriedad ale = new FrmAleatoriedad(this, true, this.tablaPM);
-            ale.setVisible(true);
+            Object seleccion = JOptionPane.showInputDialog(this, "Seleccione una opción",
+                    "Alerta", JOptionPane.QUESTION_MESSAGE, null,
+                    new Object[]{"Seleccione", "Pruebas de Series", "Prueba de las distancias"}, "Seleccione");
+            if (seleccion != null) {
+                if (seleccion.equals("Pruebas de Series")) {
+                    FrmPruebaSeries se = new FrmPruebaSeries(this.tablaPM);
+                    se.setVisible(true);
+                } else if (seleccion.equals("Prueba de las distancias")) {
+                    FrmPruebaDistancias ale = new FrmPruebaDistancias(this, true, this.tablaPM);
+                    ale.setVisible(true);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
@@ -851,8 +869,18 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private void btnAleatoriedad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatoriedad1ActionPerformed
         // TODO add your handling code here:
         if (this.tablaMC.getRowCount() > 0) {
-            FrmAleatoriedad ale = new FrmAleatoriedad(this, true, this.tablaMC);
-            ale.setVisible(true);
+            Object seleccion = JOptionPane.showInputDialog(this, "Seleccione una opción",
+                    "Alerta", JOptionPane.QUESTION_MESSAGE, null,
+                    new Object[]{"Seleccione", "Pruebas de Series", "Prueba de las distancias"}, "Seleccione");
+            if (seleccion != null) {
+                if (seleccion.equals("Pruebas de Series")) {
+                    FrmPruebaSeries se = new FrmPruebaSeries(this.tablaMC);
+                    se.setVisible(true);
+                } else if (seleccion.equals("Prueba de las distancias")) {
+                    FrmPruebaDistancias ale = new FrmPruebaDistancias(this, true, this.tablaMC);
+                    ale.setVisible(true);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);
         }

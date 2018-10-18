@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author James Carrillo
  */
-public class FrmAleatoriedad extends javax.swing.JDialog {
+public class FrmPruebaDistancias extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmAleatoriedad
@@ -25,12 +25,12 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
     private double alfa;
     private double beta;
     private int h;
-
-    public FrmAleatoriedad() {
+    
+    public FrmPruebaDistancias() {
         initComponents();
     }
-
-    public FrmAleatoriedad(java.awt.Frame parent, boolean modal, JTable tabla) {
+    
+    public FrmPruebaDistancias(java.awt.Frame parent, boolean modal, JTable tabla) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -42,7 +42,7 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         this.txtSecuenciaBinaria.setEditable(false);
         this.txtHuecosEncontrados.setEditable(false);
     }
-
+    
     private void cargarCadenaR() {
         for (int i = 0; i < this.tabla.getRowCount(); i++) {
             if (i == this.tabla.getRowCount() - 1) {
@@ -55,7 +55,7 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         this.txtCantR.setText(this.tabla.getRowCount() + "");
         this.txtRi.setText("ri = {" + cadenaR + "}");
     }
-
+    
     private void cargarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         String[] columnas = {"TAM HUECO i", "Oi", "Ei [ (h)(BETA-ALFA)(1-(BETA-ALFA))^i ]", "Ei"};
@@ -93,11 +93,13 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         fila[1] = "H=" + this.txtH.getText();
         fila[2] = "H=" + Utilities.formatearMoneda(sumaCalculadoEi);
         fila[3] = "H=" + Utilities.formatearMoneda(sumaCalculadoEi);
+        this.lblx_0_2.setText(Utilities.formatearMoneda(sumaCalculadoEi));
         model.addRow(fila);
         this.tablaMuestra.setModel(model);
         this.tablaMuestra.setRowHeight(30);
         Utilities.cambiarTamañoTablaMuestra(tablaMuestra);
         Utilities.centrarCeldasTabla(tablaMuestra, new int[]{0, 1, 2, 3});
+        
     }
 
     /**
@@ -137,6 +139,7 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         lblx_0_2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaMuestra = new javax.swing.JTable();
@@ -168,6 +171,11 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
 
         txtBeta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBeta.setText("0.7");
+        txtBeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBetaKeyTyped(evt);
+            }
+        });
 
         btnComprobar.setText("COMPROBAR");
         btnComprobar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,18 +222,19 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAlfa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnComprobar))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAlfa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnComprobar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCantR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,11 +329,13 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/apppmymc/img/x_0_2.PNG"))); // NOI18N
 
         lblx_0_2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblx_0_2.setText("= 0");
 
         jLabel10.setText("VALOR DE TABLA");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setText("=");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -340,7 +351,10 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblx_0_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblx_0_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jTextField1))))
                 .addContainerGap())
         );
@@ -350,14 +364,17 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblx_0_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblx_0_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -387,7 +404,7 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -517,6 +534,10 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnComprobarActionPerformed
 
+    private void txtBetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBetaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBetaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -534,20 +555,21 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAleatoriedad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPruebaDistancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAleatoriedad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPruebaDistancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAleatoriedad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPruebaDistancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAleatoriedad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmPruebaDistancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAleatoriedad().setVisible(true);
+                new FrmPruebaDistancias().setVisible(true);
             }
         });
     }
@@ -557,6 +579,7 @@ public class FrmAleatoriedad extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

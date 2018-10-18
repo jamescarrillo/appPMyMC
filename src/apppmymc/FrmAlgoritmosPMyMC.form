@@ -747,9 +747,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblDondeRepite2" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="lblDondeRepite2" min="-2" pref="67" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton2" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <Component id="jButton2" min="-2" pref="111" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnAleatoriedad1" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -783,7 +783,7 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton2">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Pruebas"/>
+                                <Property name="text" type="java.lang.String" value="UNIFORMIDAD"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
