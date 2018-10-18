@@ -7,6 +7,7 @@ package apppmymc.utilities;
 
 import apppmymc.ParDispersion;
 import apppmymc.Utilities;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
@@ -20,15 +21,19 @@ public class DiagramaDispercion {
     private final Graphics g;
     private final Dimension dimension;
     private final int n;
+    private final int n1;
     private final int espacio_izquierda;
-    private List<ParDispersion> listPares;
+    private final List<ParDispersion> listPares;
+    private boolean verCoordenadas;
 
-    public DiagramaDispercion(Graphics g, Dimension dimension, int espacio_izquierda, int n, List<ParDispersion> listPares) {
+    public DiagramaDispercion(Graphics g, Dimension dimension, int espacio_izquierda, int n, int n1, List<ParDispersion> listPares, boolean verCoordenadas) {
         this.g = g;
         this.dimension = dimension;
         this.espacio_izquierda = espacio_izquierda;
         this.n = n;
+        this.n1 = n1;
         this.listPares = listPares;
+        this.verCoordenadas = verCoordenadas;
     }
 
     public void construir() {
@@ -39,39 +44,61 @@ public class DiagramaDispercion {
         int iterador_rango_v;
         int iterador_rango_v_alt = 0;
         int rango_h = dimension.height / n;
-        int rango_v = dimension.width / n;
+        //int rango_v = dimension.width / n;
+        int rango_v = dimension.width / n1;
         iterador_rango_v = rango_v;
         double rango_enum = 1.0 / n;
+        double rango_enum_2 = 1.0 / n1;
         double it_rango_enum_v = 0;
+        /*
         for (int i = 0; i < n; i++) {
             g.drawLine(espacio_izquierda, iterador_rango_h, dimension.width + espacio_izquierda, iterador_rango_h);
             g.drawLine(espacio_izquierda + iterador_rango_v, 0, espacio_izquierda + iterador_rango_v, dimension.height);
-            /*ENUMERAMOS EL EJE DE LAS Y*/
+            //ENUMERAMOS EL EJE DE LAS Y
             g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda - 35, dimension.height - iterador_rango_h);
-            /*ENUMERAMOS EL EJE DE LAS X*/
+            //ENUMERAMOS EL EJE DE LAS X
             g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda + iterador_rango_v_alt, dimension.height + 15);
-
             it_rango_enum_v += rango_enum;
             iterador_rango_h += rango_h;
             iterador_rango_v += rango_v;
             iterador_rango_v_alt += rango_v;
         }
-        //ULTIMOS
+         */
+        for (int i = 0; i < n; i++) {
+            g.drawLine(espacio_izquierda, iterador_rango_h, dimension.width + espacio_izquierda, iterador_rango_h);
+            //g.drawLine(espacio_izquierda + iterador_rango_v, 0, espacio_izquierda + iterador_rango_v, dimension.height);
+            /*ENUMERAMOS EL EJE DE LAS Y*/
+            g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda - 35, dimension.height - iterador_rango_h);
+            /*ENUMERAMOS EL EJE DE LAS X*/
+            //g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda + iterador_rango_v_alt, dimension.height + 15);
+            it_rango_enum_v += rango_enum;
+            iterador_rango_h += rango_h;
+            //iterador_rango_v += rango_v;
+            //iterador_rango_v_alt += rango_v;
+        }
         g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda - 35, dimension.height - iterador_rango_h + 10);
+        it_rango_enum_v = 0;
+        for (int i = 0; i < n1; i++) {
+            g.drawLine(espacio_izquierda + iterador_rango_v, 0, espacio_izquierda + iterador_rango_v, dimension.height);
+            g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda + iterador_rango_v_alt, dimension.height + 15);
+            it_rango_enum_v += rango_enum_2;
+            iterador_rango_v += rango_v;
+            iterador_rango_v_alt += rango_v;
+        }
+        //ULTIMOS
         g.drawString("" + Utilities.formatearMonedaDiagrama(it_rango_enum_v), espacio_izquierda + iterador_rango_v_alt, dimension.height + 15);
-        //Dimension dimensionY = new Dimension(espacio_izquierda, dimension.height - 0);
-        //Dimension dimensionX = new Dimension(espacio_izquierda + 0, dimension.height);
         int pos_x;
         int pos_y;
         /*AGREGAMOS LOS PUNTOS DEL DIAGRAMA DE DISPERSION*/
         for (int i = 0; i < listPares.size(); i++) {
-            pos_x = UtilitiesDiagrama.getPosDiagrama(UtilitiesDiagrama.getTotalRango(listPares.get(i).getR1(), rango_v, n), UtilitiesDiagrama.getPuntoCoordenada(listPares.get(i).getR1(), rango_v, n), listPares.get(i).getR1());
+            pos_x = UtilitiesDiagrama.getPosDiagrama(UtilitiesDiagrama.getTotalRango(listPares.get(i).getR1(), rango_v, n1), UtilitiesDiagrama.getPuntoCoordenada(listPares.get(i).getR1(), rango_v, n), listPares.get(i).getR1());
             pos_y = UtilitiesDiagrama.getPosDiagrama(UtilitiesDiagrama.getTotalRango(listPares.get(i).getR2(), rango_h, n), UtilitiesDiagrama.getPuntoCoordenada(listPares.get(i).getR2(), rango_h, n), listPares.get(i).getR2());
-            //pos_y = UtilitiesDiagrama.getPosDiagrama(rango_v, rango_enum, listPares.get(i).getR2());
-            System.out.println("" + pos_x + " - " + pos_y);
-            g.drawOval(pos_x, pos_y, 5, 5);
-            g.drawString("(" + listPares.get(i).getR1() + " " + listPares.get(i).getR2() + ")", pos_x + 10, pos_y + 10);
+            g.drawOval(espacio_izquierda + pos_x, dimension.height - pos_y, 5, 5);
+            if (verCoordenadas) {
+                g.drawString("(" + listPares.get(i).getR1() + "," + listPares.get(i).getR2() + ")", espacio_izquierda + pos_x + 7, dimension.height - pos_y + 7);
+            }
         }
+        g.setColor(Color.WHITE);
     }
 
 }

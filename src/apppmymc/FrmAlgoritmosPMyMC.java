@@ -694,7 +694,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                 /*  for (int i = 0; i < listSemillas.size(); i++) {
                     System.out.println(" pos "+i+" :>"+listSemillas.get(i).getR());
                 }*/
-                if(!encontro){
+                if (!encontro) {
                     //SI NO ENCONTRO CAMBIAMOS LOS TAMAÑOS SOLAMENTE
                     Utilities.cambiarTamañoTabla(tablaPM);
                 }
@@ -765,7 +765,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
                     model.addRow(fila);
                 }
                 PUA.ReciboCadena(listSemillas);
-                if(!encontro){
+                if (!encontro) {
                     //SI NO ENCONTRO CAMBIAMOS LOS TAMAÑOS SOLAMENTE
                     Utilities.cambiarTamañoTabla(tablaMC);
                 }
@@ -851,7 +851,7 @@ public class FrmAlgoritmosPMyMC extends javax.swing.JFrame {
     private void btnAleatoriedad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAleatoriedad1ActionPerformed
         // TODO add your handling code here:
         if (this.tablaMC.getRowCount() > 0) {
-            FrmAleatoriedad ale = new FrmAleatoriedad(this, true,this.tablaMC);
+            FrmAleatoriedad ale = new FrmAleatoriedad(this, true, this.tablaMC);
             ale.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor genere primeros los números para probar!", "Alerta", JOptionPane.WARNING_MESSAGE);

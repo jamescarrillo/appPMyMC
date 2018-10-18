@@ -12,6 +12,7 @@ package apppmymc.utilities;
 public class UtilitiesDiagrama {
 
     public static int getPosDiagrama(int total_rango, double punto_coordenada, double punto_coordenada_hallar) {
+        //System.out.println("(" + punto_coordenada_hallar + "*" + total_rango + ")/" + punto_coordenada);
         int pos_coordenada = (int) ((punto_coordenada_hallar * total_rango) / punto_coordenada);
         return pos_coordenada;
     }
@@ -27,6 +28,7 @@ public class UtilitiesDiagrama {
                 break;
             }
         }
+        //System.out.println("total rango " + total_rango);
         return total_rango;
     }
 
