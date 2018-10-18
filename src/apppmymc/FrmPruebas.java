@@ -5,7 +5,11 @@
  */
 package apppmymc;
 
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,29 +47,36 @@ public class FrmPruebas extends javax.swing.JFrame {
     }
 
     public void mostrar() {
-        String cadena = "";
-        int nFilas;
         //ARREGLO EL JTEXTAREA
-        if (listaResultados.size() % 8 == 0) {
-            nFilas = (listaResultados.size() / 8);
-        } else {
-            nFilas = (listaResultados.size() / 8) + 1;
+        ListaDeResultados.getTableHeader().setVisible(false);
+        ListaDeResultados.getTableHeader().setPreferredSize(new Dimension(0, 0));
+        ListadeResultados1.getTableHeader().setVisible(false);
+        ListadeResultados1.getTableHeader().setPreferredSize(new Dimension(0, 0));
+        //CENTRAR DATOS
+        DefaultTableCellRenderer Alinear = new DefaultTableCellRenderer();
+        Alinear.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < 8; i++) {
+            ListaDeResultados.getColumnModel().getColumn(i).setCellRenderer(Alinear);
+            ListadeResultados1.getColumnModel().getColumn(i).setCellRenderer(Alinear);
         }
+        //
+        DefaultTableModel modelo = (DefaultTableModel) ListaDeResultados.getModel();
+        DefaultTableModel modelo1 = (DefaultTableModel) ListadeResultados1.getModel();
+        Object[] fil = new Object[8];
+        int a = (listaResultados.size() / 8) + 1;
         int k = 0;
-
         //IMPRIMO EN EL TEXTAREA
-        for (int i = 0; i < nFilas; i++) {
+        for (int i = 0; i < a; i++) {
             for (int j = 0; j < 8; j++) {
                 if (listaResultados.size() > k) {
-                    cadena = cadena + String.valueOf(listaResultados.get(k).getR()) + "  ";
+                    fil[j] = listaResultados.get(k).getR();
+                    k++;
                 } else {
-                    break;
+                    fil[j] = "";
                 }
-                k++;
             }
-            ListaDeResultados.append(cadena + "\n");
-            ListaDeResultados1.append(cadena + "\n");
-            cadena = "";
+            modelo.addRow(fil);
+            modelo1.addRow(fil);
         }
     }
 
@@ -79,12 +90,8 @@ public class FrmPruebas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ListaDeResultados = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtconfianza = new javax.swing.JTextField();
@@ -107,9 +114,9 @@ public class FrmPruebas extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        ListaDeResultados = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ListaDeResultados1 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaresult = new javax.swing.JTable();
@@ -133,6 +140,8 @@ public class FrmPruebas extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtkolmo = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListadeResultados1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,10 +150,6 @@ public class FrmPruebas extends javax.swing.JFrame {
         jTabbedPane2.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        ListaDeResultados.setColumns(20);
-        ListaDeResultados.setRows(5);
-        jScrollPane1.setViewportView(ListaDeResultados);
 
         jLabel1.setText("Números Pseudoaleatorios");
 
@@ -190,6 +195,12 @@ public class FrmPruebas extends javax.swing.JFrame {
 
         jLabel9.setText("Distribución Chi-Cuadrado:");
 
+        txtChiCuadrado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtChiCuadradoKeyPressed(evt);
+            }
+        });
+
         jButton2.setText("Resultado");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,11 +229,20 @@ public class FrmPruebas extends javax.swing.JFrame {
 
         jLabel14.setText("sigue una distribucion uniforme.");
 
+        ListaDeResultados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ));
+        jScrollPane5.setViewportView(ListaDeResultados);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -250,7 +270,7 @@ public class FrmPruebas extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -278,14 +298,15 @@ public class FrmPruebas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13)))
                 .addGap(53, 53, 53))
+            .addComponent(jScrollPane5)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -316,16 +337,12 @@ public class FrmPruebas extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("CHI-CUADRADO", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        ListaDeResultados1.setColumns(20);
-        ListaDeResultados1.setRows(5);
-        jScrollPane3.setViewportView(ListaDeResultados1);
 
         jLabel4.setText("Números Pseudoaleatorios");
 
@@ -390,82 +407,99 @@ public class FrmPruebas extends javax.swing.JFrame {
 
         jLabel22.setText("Valor de tabla Kolmogorov-Smirnov:");
 
+        txtkolmo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtkolmoKeyPressed(evt);
+            }
+        });
+
+        ListadeResultados1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ));
+        jScrollPane1.setViewportView(ListadeResultados1);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane4))
-                        .addContainerGap())
+                        .addContainerGap()
+                        .addComponent(jScrollPane4))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtconfianza1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(31, 31, 31))))
+                        .addComponent(jButton3)))
+                .addContainerGap())
+            .addComponent(jScrollPane1)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(16, 16, 16)
-                        .addComponent(txtkolmo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel22)
+                                        .addGap(16, 16, 16)
+                                        .addComponent(txtkolmo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel21)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(labelres, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(196, 196, 196)
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton4)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtdmas, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jLabel18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtdmenos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(57, 57, 57)
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(55, 55, 55)
+                                        .addComponent(jLabel20)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtpp, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelres, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtdmas, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtdmenos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel20)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtpp, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 42, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(227, 227, 227)
-                .addComponent(jLabel25)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -474,7 +508,7 @@ public class FrmPruebas extends javax.swing.JFrame {
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
@@ -499,33 +533,20 @@ public class FrmPruebas extends javax.swing.JFrame {
                         .addComponent(labelres, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("KOLMOGOROV-SMIRNOV", jPanel5);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
-        );
-
-        jTabbedPane1.addTab("UNIFORMIDAD", jPanel2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane2)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -620,7 +641,7 @@ public class FrmPruebas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        float max=0, min=0;
+        float max = 0, min = 0;
         int n = listaResultados.size();
         //ORDENAR DE MENOR A MAYOr
         float[] orden = new float[n];
@@ -628,7 +649,7 @@ public class FrmPruebas extends javax.swing.JFrame {
         for (int i = 0; i < n; i++) {
             orden[i] = listaResultados.get(i).getR();
         }
-        
+
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 if (orden[j - 1] > orden[j]) {
@@ -642,30 +663,30 @@ public class FrmPruebas extends javax.swing.JFrame {
         Object[] fil = new Object[6];
         for (int i = 0; i < n; i++) {
             fil[0] = i + 1;
-            fil[1] = String.valueOf(String.format("%.4f", ((i + 1) / (float)n)));
-            fil[2]=orden[i];
-            fil[3]= String.valueOf(String.format("%.4f", ((i)/(float)n)));
-            fil[4]= String.valueOf(String.format("%.4f", (((i+1)/(float)n)-orden[i])));
+            fil[1] = String.valueOf(String.format("%.4f", ((i + 1) / (float) n)));
+            fil[2] = orden[i];
+            fil[3] = String.valueOf(String.format("%.4f", ((i) / (float) n)));
+            fil[4] = String.valueOf(String.format("%.4f", (((i + 1) / (float) n) - orden[i])));
             //CAPTURAMOS D+
-            if ((((i+1)/(float)n)-orden[i])>max) {
-                max=(((i+1)/(float)n)-orden[i]);
+            if ((((i + 1) / (float) n) - orden[i]) > max) {
+                max = (((i + 1) / (float) n) - orden[i]);
             }
-            fil[5]= String.valueOf(String.format("%.4f", (orden[i]-((i)/(float)n))));
-            if ((orden[i]-((i)/(float)n))>min) {
-                min=(orden[i]-((i)/(float)n));
+            fil[5] = String.valueOf(String.format("%.4f", (orden[i] - ((i) / (float) n))));
+            if ((orden[i] - ((i) / (float) n)) > min) {
+                min = (orden[i] - ((i) / (float) n));
             }
             modelo.addRow(fil);
         }
-        
+
         txtdmas.setText(String.format("%.3f", max));
         txtdmenos.setText(String.format("%.3f", min));
-        
+
         //Generamos el valor de alfa
         double p = Double.parseDouble(txtconfianza1.getText());
         p = (100 - p) / 100;
         txtpp.setText(String.valueOf(String.format("%.2f", p)));
         txtn.setText(String.valueOf(n));
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnActionPerformed
@@ -676,21 +697,21 @@ public class FrmPruebas extends javax.swing.JFrame {
         // TODO add your handling code here:
         float max = Float.parseFloat(txtdmas.getText().replace(",", "."));
         float min = Float.parseFloat(txtdmenos.getText().replace(",", "."));
-        float kolmo=Float.parseFloat(txtkolmo.getText().replace(",", "."));
-        if (max>min) {
-            if (kolmo>max) {
-                labelres.setText(kolmo+">"+max);
+        float kolmo = Float.parseFloat(txtkolmo.getText().replace(",", "."));
+        if (max > min) {
+            if (kolmo > max) {
+                labelres.setText(kolmo + ">" + max);
                 labelser.setText(" se ");
-            }else{
-                labelres.setText(kolmo+"<"+max);
+            } else {
+                labelres.setText(kolmo + "<" + max);
                 labelser.setText(" no se ");
             }
-        }else{
-            if (kolmo>min) {
-                labelres.setText(kolmo+">"+min);
+        } else {
+            if (kolmo > min) {
+                labelres.setText(kolmo + ">" + min);
                 labelser.setText(" se ");
-            }else{
-                labelres.setText(kolmo+"<"+min);
+            } else {
+                labelres.setText(kolmo + "<" + min);
                 labelser.setText(" no se ");
             }
         }
@@ -699,8 +720,23 @@ public class FrmPruebas extends javax.swing.JFrame {
         jLabel25.setVisible(true);
         labelres.setVisible(true);
         labelser.setVisible(true);
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtkolmoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtkolmoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButton4ActionPerformed(null);
+        }
+    }//GEN-LAST:event_txtkolmoKeyPressed
+
+    private void txtChiCuadradoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtChiCuadradoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButton2ActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_txtChiCuadradoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -741,8 +777,8 @@ public class FrmPruebas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea ListaDeResultados;
-    private javax.swing.JTextArea ListaDeResultados1;
+    private javax.swing.JTable ListaDeResultados;
+    private javax.swing.JTable ListadeResultados1;
     private javax.swing.JTable TablaResultados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -773,14 +809,12 @@ public class FrmPruebas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel labelres;
     private javax.swing.JLabel labelser;
